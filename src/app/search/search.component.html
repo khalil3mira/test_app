@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="header">
+    <img src="../../assets/pictures/LuckyTrip_Logo_Small.png" class="logo"/>
+    <div class="header-title">
+      Search LuckyTrip
+      <div class="header-text"> 350 destinations, 1500 blog posts, Unlimited Trips</div>
+      <div class="form-wrapper cf">
+        <input matInput placeholder="Enter a Destination..." class="search-zone" #query>
+        <button matButton (click)="searchSubmit(query.value)">GO</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="results.length>0" class="grid-title">
+    Trending
+  </div>
+
+  <div class="grid-title" *ngIf="results.length==0 && query.value!==''">
+    <p>No Result</p>
+  </div>
+
+  <div *ngIf="results.length>0"
+       style="padding: 0% 20%"
+       fxLayout="row wrap"
+       fxLayoutAlign="space-between center"
+       fxLayout.xs="column"
+       fxLayout.sm="column"
+       fxLayoutGap="10px 10px grid"
+  >
+    <ng-container *ngFor="let item of results">
+      <div fxFlex="30">
+        <mat-card>
+          <img mat-card-image [src]="item.image_url" width="200" height="200">
+          <mat-card-content>
+            <a [routerLink]="['/results']" [queryParams]="{id: item.id}">
+              {{item.city}} , {{item.country_name}}
+            </a>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
+
+</div>

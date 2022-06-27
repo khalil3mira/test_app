@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="header" [style.background-image]="'url('+(result?result.destination.thumbnail.image_url:'')+')'">
+    <img src="../../assets/pictures/LuckyTrip_Logo_Small.png" class="logo"/>
+    <div class="header-title">
+      <div class="form-wrapper cf">
+        <input matInput placeholder="Search..." class="search-zone" #query>
+        <button matButton>GO</button>
+      </div>
+      {{result ? result.destination.country_name.toUpperCase() : ''}}
+      <div class="header-text"> {{result ? result.destination.city.toUpperCase() : ''}}</div>
+    </div>
+  </div>
+
+  <div class="grid-title">
+    What's it like ?
+    <p>
+      {{result ? result.destination.description.text : ''}}
+    </p>
+
+    Blog Posts
+  </div>
+  <div *ngIf="result"
+       style="padding: 0% 20%"
+       fxLayout="row wrap"
+       fxLayoutAlign="space-between center"
+       fxLayout.xs="column"
+       fxLayout.sm="column"
+       fxLayoutGap="10px 10px grid"
+  >
+
+    <ng-container *ngFor="let item of result.activities">
+      <div fxFlex="30">
+        <mat-card>
+          <img mat-card-image [src]="item.thumbnail.image_url" width="200" height="200">
+          <mat-card-content>
+            <p>
+              {{item.name}}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
+  <div class="footer">
+    Find a trip to {{result ? result.destination.country_name: ''}}
+    <p class="text-center">Tap the Lucky button to get started…</p>
+      <img src="../../assets/pictures/lucky_button.png"/>
+  </div>
+</div>
